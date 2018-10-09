@@ -8,25 +8,21 @@
 ### Supervisor control cannot be used, because Bareos uses old SysV Init scripts that fork
 ### Any improvements appreciated
 
-FROM debian:latest
+FROM ubuntu:16.04
 MAINTAINER anton.latukha+docker@gmail.com
 
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt update
-RUN apt install -y apt-utils wget
+RUN apt install -y apt-utils wget gnupg2
 
 # Install on Debian
 # define parameter for BareOS setup
 #
 
 # Look at http://download.bareos.org/bareos/release/latest/ for available builds
-ENV DIST=Debian_8.0
-
-ENV DATABASE=postgresql
-# or DATABASE=mysql
-
-# Bareos repository URL
-ENV BareosURL=http://download.bareos.org/bareos/release/latest/$DIST/
+ENV DIST=xUbuntu_14.04 \
+    DATABASE=postgresql \
+    BareosURL=http://download.bareos.org/bareos/release/latest/$DIST/
 
 # add the Bareos repository
 RUN printf "deb $BareosURL /\n" > /etc/apt/sources.list.d/bareos.list
